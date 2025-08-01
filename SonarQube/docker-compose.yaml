@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    hostname: sonarqube
+    container_name: sonarqube
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Database connection settings
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+      # Optional: Disable embedded database warning
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+    volumes:
+      # Persist SonarQube data, extensions, and logs
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_temp:/opt/sonarqube/temp
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+    networks:
+      - sonarqube_network
+
+  db:
+    image: postgres:17
+    hostname: postgresql
+    container_name: postgresql
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    volumes:
+      # Persist PostgreSQL data
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sonarqube_network
+
+  # Added: OpenGrep security analysis service
+  opengrep:
+    image: alpine:latest
+    hostname: opengrep
+    container_name: opengrep
+    working_dir: /workspace
+    environment:
+      - PATH=/root/.opengrep/cli/latest:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    volumes:
+      - /tmp/opengrep-workspace:/workspace
+    networks:
+      - sonarqube_network
+    depends_on:
+      - sonarqube
+    command: |
+      sh -c "
+        apk add --no-cache curl bash python3 py3-pip jq &&
+        curl -fsSL https://raw.githubusercontent.com/opengrep/opengrep/main/install.sh | bash &&
+        export PATH='/root/.opengrep/cli/latest':$PATH &&
+        echo 'export PATH=\"/root/.opengrep/cli/latest:\$PATH\"' >> ~/.bashrc &&
+        mkdir -p /workspace/reports &&
+        tail -f /dev/null
+      "
+    restart: unless-stopped
+
+networks:
+  sonarqube_network:
+    driver: bridge
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube_temp:
+  postgresql:
+  postgresql_data:
