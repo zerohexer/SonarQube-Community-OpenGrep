@@ -1,6 +1,6 @@
 # SonarQube Community + OpenGrep Integration
 
-🔒 **Automated Security Analysis** | 📊 **Unified Dashboard** | 🐳 **Docker-Based**
+**Automated Security Analysis** | **Unified Dashboard** | **Docker-Based**
 
 A complete integration solution that combines **OpenGrep** (open-source SAST) with **SonarQube Community Edition** to provide comprehensive security analysis with a professional web dashboard.
 
@@ -8,17 +8,17 @@ A complete integration solution that combines **OpenGrep** (open-source SAST) wi
 ![SonarQube](https://img.shields.io/badge/SonarQube-10.8+-green.svg)
 ![OpenGrep](https://img.shields.io/badge/OpenGrep-Latest-orange.svg)
 
-## ✨ Features
+## Features
 
-- 🔍 **Automated Security Scanning**: OpenGrep finds vulnerabilities, SonarQube displays them beautifully
-- 🏠 **Self-Hosted**: Complete local setup with Docker Compose
-- 📊 **Rich Dashboard**: Professional web interface with detailed vulnerability reports
-- 🔄 **One-Click Analysis**: Single script analyzes any codebase
-- 🎯 **Smart Mapping**: Converts OpenGrep findings to SonarQube's format with proper severity levels
-- 📋 **Comprehensive Reports**: Includes CWE classifications, OWASP mappings, and detailed descriptions
-- 🚀 **Production Ready**: Used for real security analysis of production codebases
+- **Automated Security Scanning**: OpenGrep finds vulnerabilities, SonarQube displays them beautifully
+- **Self-Hosted**: Complete local setup with Docker Compose
+- **Rich Dashboard**: Professional web interface with detailed vulnerability reports
+- **One-Click Analysis**: Single script analyzes any codebase
+- **Smart Mapping**: Converts OpenGrep findings to SonarQube's format with proper severity levels
+- **Comprehensive Reports**: Includes CWE classifications, OWASP mappings, and detailed descriptions
+- **Production Ready**: Used for real security analysis of production codebases
 
-## 🎯 What You Get
+## What You Get
 
 ### Security Analysis Coverage
 - **Path Traversal Vulnerabilities**
@@ -29,13 +29,13 @@ A complete integration solution that combines **OpenGrep** (open-source SAST) wi
 - **OWASP Top 10 Security Issues**
 
 ### Professional Dashboard
-- 📊 **Visual Security Metrics**
-- 🔴 **Severity-Based Issue Categorization**
-- 📁 **File-by-File Vulnerability Breakdown**
-- 🔗 **Clickable Issue Navigation**
-- 📈 **Historical Trend Analysis**
+- **Visual Security Metrics**
+- **Severity-Based Issue Categorization**
+- **File-by-File Vulnerability Breakdown**
+- **Clickable Issue Navigation**
+- **Historical Trend Analysis**
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -54,9 +54,9 @@ chmod +x setup.sh analyze.sh
 ./setup.sh
 ```
 This will:
-- 🐳 Start SonarQube Community Edition (localhost:9000)
-- 🔧 Start OpenGrep container with security rulesets
-- ⏳ Wait for services to be ready (~2-3 minutes)
+- Start SonarQube Community Edition (localhost:9000)
+- Start OpenGrep container with security rulesets
+- Wait for services to be ready (~2-3 minutes)
 
 ### 3. Analyze Any Codebase
 ```bash
@@ -67,11 +67,11 @@ cd /path/to/your/project/
 ```
 
 ### 4. View Results
-- 🌐 **SonarQube Dashboard**: http://localhost:9000
-- 👤 **Login**: admin / ZeroAZ2402-TFF@12345!!@@
-- 🔍 **Filter by**: "External Engine: opengrep"
+- **SonarQube Dashboard**: http://localhost:9000
+- **Login**: Default SonarQube credentials (admin/admin)
+- **Filter by**: "External Engine: opengrep"
 
-## 📋 How It Works
+## How It Works
 
 ```mermaid
 graph LR
@@ -85,13 +85,13 @@ graph LR
 
 ### The Magic Behind The Scenes
 
-1. **📂 Code Analysis**: OpenGrep scans your source code with security-focused rulesets
-2. **🔄 Smart Conversion**: Python script converts findings to SonarQube's format
-3. **📊 Rich Mapping**: Adds CWE classifications, OWASP categories, severity levels
-4. **🎨 Enhanced Display**: Creates HTML descriptions with links and references
-5. **📈 Dashboard Integration**: Imports everything into SonarQube's professional interface
+1. **Code Analysis**: OpenGrep scans your source code with security-focused rulesets
+2. **Smart Conversion**: Python script converts findings to SonarQube's format
+3. **Rich Mapping**: Adds CWE classifications, OWASP categories, severity levels
+4. **Enhanced Display**: Creates HTML descriptions with links and references
+5. **Dashboard Integration**: Imports everything into SonarQube's professional interface
 
-## 🛡️ Real-World Results
+## Real-World Results
 
 Here's what the integration caught in a production kernel development platform:
 
@@ -103,12 +103,12 @@ Here's what the integration caught in a production kernel development platform:
 
 ### Dashboard View
 ```
-🔴 Critical: 3 issues    (Hardcoded secrets, exposed tokens)
-🟡 Major: 45 issues      (Path traversal, injection flaws)
-🔵 Info: 22 issues       (Code quality, minor security)
+Critical: 3 issues    (Hardcoded secrets, exposed tokens)
+Major: 45 issues      (Path traversal, injection flaws)
+Info: 22 issues       (Code quality, minor security)
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 SonarQube-Community-OpenGrep/
@@ -121,7 +121,7 @@ SonarQube-Community-OpenGrep/
 └── LICENSE                          # MIT License
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Customizing Analysis
 
@@ -146,7 +146,7 @@ OpenGrep supports custom security rules:
 docker exec opengrep opengrep --config=/custom/rules source/
 ```
 
-## 🎯 Advanced Usage
+## Advanced Usage
 
 ### CI/CD Integration
 
@@ -174,7 +174,7 @@ for project in api frontend backend; do
 done
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -196,7 +196,7 @@ curl http://localhost:9000/api/system/status
 docker exec opengrep opengrep --list-rules
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Found a bug or want to add features? Contributions welcome!
 
@@ -206,7 +206,7 @@ Found a bug or want to add features? Contributions welcome!
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📊 Performance Stats
+## Performance Stats
 
 - **Scan Speed**: ~30 seconds for 50K lines of code
 - **Accuracy**: High-confidence security findings with minimal false positives
@@ -214,27 +214,27 @@ Found a bug or want to add features? Contributions welcome!
 - **Memory Usage**: ~2GB RAM for full stack
 - **Disk Space**: ~1GB for services + reports
 
-## 🏆 Why This Integration?
+## Why This Integration?
 
 ### Traditional Problems
-- ❌ OpenGrep CLI output is hard to review
-- ❌ No centralized dashboard for multiple projects
-- ❌ Security findings get lost in terminal output
-- ❌ No historical tracking or trend analysis
+- OpenGrep CLI output is hard to review
+- No centralized dashboard for multiple projects
+- Security findings get lost in terminal output
+- No historical tracking or trend analysis
 
 ### Our Solution
-- ✅ Professional web dashboard with rich visualization
-- ✅ Centralized security management across projects
-- ✅ Detailed issue descriptions with remediation advice
-- ✅ Historical tracking and security metrics
-- ✅ Team collaboration features
-- ✅ Export capabilities for compliance reporting
+- Professional web dashboard with rich visualization
+- Centralized security management across projects
+- Detailed issue descriptions with remediation advice
+- Historical tracking and security metrics
+- Team collaboration features
+- Export capabilities for compliance reporting
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **OpenGrep Team** - For the excellent open-source SAST engine
 - **SonarSource** - For SonarQube Community Edition
@@ -243,6 +243,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**⭐ Star this repository if it helped secure your applications!**
+**Star this repository if it helped secure your applications!**
 
 [![GitHub stars](https://img.shields.io/github/stars/zerohexer/SonarQube-Community-OpenGrep.svg?style=social&label=Star)](https://github.com/zerohexer/SonarQube-Community-OpenGrep)
