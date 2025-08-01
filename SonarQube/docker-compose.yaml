@@ -1,6 +1,35 @@
 version: "3.8"
 
 services:
+  # Plugin installer service to download and install C++ plugin
+  plugin-installer:
+    image: alpine:latest
+    container_name: plugin-installer
+    user: root
+    volumes:
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    command: >
+      sh -c "
+        apk add --no-cache curl file &&
+        echo 'Downloading SonarQube C++ Community Plugin...' &&
+        mkdir -p /opt/sonarqube/extensions/plugins &&
+        cd /opt/sonarqube/extensions/plugins &&
+        curl -L -f -o sonar-cxx-plugin-2.2.1.1248.jar https://github.com/SonarOpenCommunity/sonar-cxx/releases/download/cxx-2.2.1/sonar-cxx-plugin-2.2.1.1248.jar &&
+        echo 'Verifying downloaded file...' &&
+        ls -la sonar-cxx-plugin-2.2.1.1248.jar &&
+        file sonar-cxx-plugin-2.2.1.1248.jar &&
+        if [ ! -s sonar-cxx-plugin-2.2.1.1248.jar ]; then
+          echo 'ERROR: Downloaded file is empty!' && exit 1;
+        fi &&
+        if ! unzip -tq sonar-cxx-plugin-2.2.1.1248.jar; then
+          echo 'ERROR: Downloaded JAR file is corrupted!' && exit 1;
+        fi &&
+        chmod 644 sonar-cxx-plugin-2.2.1.1248.jar &&
+        chown -R 1000:1000 /opt/sonarqube/extensions &&
+        echo 'C++ plugin downloaded and verified successfully!' &&
+        ls -la /opt/sonarqube/extensions/plugins/
+      "
+      
   sonarqube:
     image: sonarqube:community
     hostname: sonarqube
@@ -8,6 +37,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      plugin-installer:
+        condition: service_completed_successfully
     environment:
       # Database connection settings
       SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
@@ -15,6 +46,8 @@ services:
       SONAR_JDBC_PASSWORD: sonar
       # Optional: Disable embedded database warning
       SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+      # Enable C++ file extensions (required for sonar-cxx plugin)
+      SONAR_CXX_FILE_SUFFIXES: ".cxx,.cpp,.cc,.c,.hxx,.hpp,.hh,.h"
     volumes:
       # Persist SonarQube data, extensions, and logs
       - sonarqube_data:/opt/sonarqube/data

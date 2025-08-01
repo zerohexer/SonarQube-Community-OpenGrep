@@ -6,8 +6,8 @@
 
 # Configuration
 SONAR_HOST_URL="http://localhost:9000"
-SONAR_TOKEN="sqp_128a50d81d1ac18bd20f7812e7ae54ed79f7914f"
-PROJECT_KEY="KernelQ"
+SONAR_TOKEN="sqp_90174ddf988dc6ffe288f4c93e16dac921486376"
+PROJECT_KEY="CSP-NET"
 
 # Colors
 GREEN='\033[0;32m'
@@ -38,7 +38,9 @@ fi
 
 # Step 1: Use existing OpenGrep container
 echo_info "🔍 Running OpenGrep security analysis..."
-# Copy source code to opengrep workspace
+# Clear previous analysis files and copy source code to opengrep workspace
+echo_info "🧹 Clearing previous analysis workspace..."
+docker exec opengrep sh -c "cd /workspace && rm -rf source && mkdir source"
 docker cp "$REPO_DIR/." opengrep:/workspace/source/
 docker exec opengrep sh -c "
     cd /workspace &&
